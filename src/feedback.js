@@ -66,12 +66,8 @@ async function handleCitizenFeedbackSubmit(e) {
 
       if (!error) {
         savedSuccess = true;
-      } else {
-        console.warn("Chyba při ukládání do Supabase:", error);
       }
-    } catch (err) {
-      console.warn("Chyba spojení se Supabase:", err);
-    }
+    } catch (err) { /* tiché – použije se localStorage fallback */ }
   }
 
   // 2. Fallback do LocalStorage POUZE pokud Supabase uložení neproběhlo (K2 audit)

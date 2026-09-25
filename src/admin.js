@@ -13,7 +13,6 @@ function checkAdminSession() {
     showInPageAdminBar(state.currentAdminUser.email);
     enableInPageEditing();
   } catch (e) {
-    console.error("Chyba obnovy admin session:", e);
     localStorage.removeItem("bsm_admin_user");
   }
 }
@@ -98,12 +97,8 @@ window.handleAdminLogin = async function(e) {
           id: data.user.id,
           source: "supabase"
         };
-      } else {
-        console.warn("Chyba Supabase Auth:", error);
       }
-    } catch (err) {
-      console.warn("Chyba při přihlašování přes Supabase:", err);
-    }
+    } catch (err) { /* tiché – zobrazí se chybová hláška v UI */ }
   }
 
   submitBtn.disabled = false;
@@ -134,7 +129,7 @@ window.logoutAdmin = async function() {
   if (state.supabaseClient && state.currentAdminUser?.source === "supabase") {
     try {
       await state.supabaseClient.auth.signOut();
-    } catch (e) { console.error("Chyba při odhlášení ze Supabase:", e); }
+    } catch (e) { /* tiché */ }
   }
   state.currentAdminUser = null;
   localStorage.removeItem("bsm_admin_user");

@@ -23,9 +23,7 @@ async function loadAndApplySections() {
             visible: s.is_visible
           }));
       }
-    } catch (e) {
-      console.warn("Chyba čtení sekcí ze Supabase:", e);
-    }
+    } catch (e) { /* tiché – použije se fallback */ }
   }
 
   if (!sections) {
@@ -33,7 +31,7 @@ async function loadAndApplySections() {
     if (local) {
       try {
         sections = JSON.parse(local).filter(s => s.id !== "bsm_site_content");
-      } catch (e) { console.error("Chyba parsování sekcí z localStorage:", e); }
+      } catch (e) { /* tiché */ }
     }
   }
 

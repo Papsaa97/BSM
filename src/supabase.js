@@ -11,17 +11,13 @@ function initSupabaseClient() {
   if (savedConfig) {
     try {
       config = JSON.parse(savedConfig);
-    } catch (e) {
-      console.error("Chyba čtení konfigurace Supabase:", e);
-    }
+    } catch (e) { /* tiché – použijí se výchozí hodnoty */ }
   }
 
   if (window.supabase && config.url && config.anonKey) {
     try {
       state.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
-      console.log("Supabase klient inicializován pro:", config.url);
     } catch (err) {
-      console.warn("Nepodařilo se připojit k Supabase:", err);
       state.supabaseClient = null;
     }
   } else {
@@ -151,13 +147,9 @@ async function loadSiteContent() {
       if (!error && data && data.title) {
         try {
           content = JSON.parse(data.title);
-        } catch (e) {
-          console.warn("Chyba parsování obsahu webu ze Supabase:", e);
-        }
+        } catch (e) { /* tiché – použije se fallback */ }
       }
-    } catch (err) {
-      console.warn("Chyba dotazu na obsah v Supabase:", err);
-    }
+    } catch (err) { /* tiché – použije se fallback */ }
   }
 
   // 2. Fallback do LocalStorage
@@ -166,9 +158,7 @@ async function loadSiteContent() {
     if (saved) {
       try {
         content = JSON.parse(saved);
-      } catch (e) {
-        console.warn("Chyba čtení bsm_site_content z localStorage:", e);
-      }
+      } catch (e) { /* tiché */ }
     }
   }
 

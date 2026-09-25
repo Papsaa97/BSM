@@ -638,9 +638,7 @@ window.saveInPageChanges = async function() {
         highlight: !!c.highlight
       }));
       await state.supabaseClient.from("candidates").upsert(candUpdates);
-    } catch (err) {
-      console.warn("Chyba při ukládání do Supabase:", err);
-    }
+    } catch (err) { /* tiché – data uložena lokálně */ }
   }
 
   markUnsavedChanges(false);
@@ -706,9 +704,7 @@ async function loadAdminFeedbacks() {
         .select("*")
         .order("created_at", { ascending: false });
       if (!error && data) list = data;
-    } catch (e) {
-      console.warn("Chyba čtení podnětů ze Supabase:", e);
-    }
+    } catch (e) { /* tiché – použije se localStorage */ }
   }
 
   const local = JSON.parse(localStorage.getItem("bsm_feedbacks") || "[]");
@@ -807,7 +803,7 @@ window.toggleFeedbackStatus = async function(id) {
   if (state.supabaseClient) {
     try {
       await state.supabaseClient.from("feedbacks").update({ status: nextStatus }).eq("id", id);
-    } catch (e) { console.error("Chyba aktualizace stavu feedbacku:", e); }
+    } catch (e) { /* tiché */ }
   }
 
   localStorage.setItem("bsm_feedbacks", JSON.stringify(state.appFeedbacks));
@@ -823,7 +819,7 @@ window.deleteFeedback = async function(id) {
   if (state.supabaseClient) {
     try {
       await state.supabaseClient.from("feedbacks").delete().eq("id", id);
-    } catch (e) { console.error("Chyba mazání feedbacku ze Supabase:", e); }
+    } catch (e) { /* tiché */ }
   }
 
   localStorage.setItem("bsm_feedbacks", JSON.stringify(state.appFeedbacks));

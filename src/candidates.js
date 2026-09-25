@@ -18,9 +18,7 @@ async function loadAndRenderCandidates() {
       if (!error && data && data.length > 0) {
         candidates = data;
       }
-    } catch (e) {
-      console.warn("Chyba čtení kandidátů ze Supabase:", e);
-    }
+    } catch (e) { /* tiché – použije se fallback */ }
   }
 
   if (!candidates) {
@@ -28,7 +26,7 @@ async function loadAndRenderCandidates() {
     if (local) {
       try {
         candidates = JSON.parse(local);
-      } catch (e) { console.error("Chyba parsování kandidátů z localStorage:", e); }
+      } catch (e) { /* tiché */ }
     }
   }
 
