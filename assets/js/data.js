@@ -397,3 +397,4 @@ const BSM_DATA = {
   }
 };
 
+window.BSM_DATA = BSM_DATA;
