@@ -1,0 +1,411 @@
+/* Vlastní designové styly pro BSM Horní Stropnice */
+/* Font Plus Jakarta Sans je importován v index.html přes <link> (S1 audit: odstraněn duplicitní @import) */
+
+:root {
+  --primary-blue: #0b4884;
+  --primary-dark: #072d54;
+  --accent-blue: #1a6cb5;
+  --light-blue: #eef5fb;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+/* Jemný skleněný efekt (Glassmorphism) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Custom scrollbar (WebKit) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* S6 audit: Respekt k uživatelům citlivým na pohyb */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   DRAG AND DROP PRO MODULY (PŘESOUVÁNÍ PODRŽENÍM A PŘETAŽENÍM)
+   ========================================================================== */
+
+.drag-item {
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.drag-item:active {
+  cursor: grabbing;
+}
+
+.drag-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+  border-style: dashed !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.3);
+}
+
+.drag-item.drag-over {
+  border-color: #0284c7 !important;
+  background-color: rgba(14, 165, 233, 0.12) !important;
+  box-shadow: 0 0 0 2px #38bdf8, 0 10px 20px -5px rgba(14, 165, 233, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+.drag-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Styly pro vnořené formuláře editoru obsahu */
+.editor-input {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8125rem;
+  color: #f8fafc;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+.editor-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.375rem;
+}
+
+/* ==========================================================================
+   PŘÍMÁ IN-PAGE EDITACE OBSAHU PŘÍMO NA STRÁNCE (VISUAL CMS)
+   ========================================================================== */
+
+/* Indikátor editovatelného textu při aktivním režimu */
+body.admin-edit-active [contenteditable="true"] {
+  outline: 1px dashed transparent;
+  outline-offset: 3px;
+  border-radius: 4px;
+  transition: outline-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+body.admin-edit-active [contenteditable="true"]:hover {
+  outline: 2px dashed #0284c7 !important;
+  background-color: rgba(2, 132, 199, 0.06) !important;
+  cursor: text;
+}
+
+body.admin-edit-active [contenteditable="true"]:focus {
+  outline: 2px solid #0284c7 !important;
+  background-color: rgba(2, 132, 199, 0.12) !important;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2) !important;
+  cursor: text;
+}
+
+/* Ovládací panel sekce plovoucí přímo nad každým modulem */
+.page-section-control-bar {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 12px;
+  padding: 6px 10px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+body.admin-edit-active .page-section-control-bar {
+  display: flex;
+}
+
+.page-section-control-bar .section-drag-btn {
+  cursor: grab;
+  color: #38bdf8;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(56, 189, 248, 0.15);
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.page-section-control-bar .section-drag-btn:hover {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.page-section-control-bar .section-drag-btn:active {
+  cursor: grabbing;
+}
+
+/* Stavy pro přetahování celé sekce v DOMu */
+section.section-drag-active {
+  opacity: 0.35 !important;
+  outline: 3px dashed #0284c7 !important;
+  outline-offset: -3px;
+}
+
+section.section-drop-target {
+  outline: 4px solid #38bdf8 !important;
+  outline-offset: 4px;
+  position: relative;
+}
+
+section.section-drop-target::before {
+  content: "⬇ Sem přesunout modul";
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0284c7;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 14px;
+  border-radius: 9999px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+}
+
+/* Skrytá sekce v režimu úprav */
+body.admin-edit-active section.section-hidden-admin {
+  opacity: 0.45;
+  filter: grayscale(80%);
+  position: relative;
+  outline: 2px dashed #94a3b8 !important;
+}
+
+/* Tlačítko pro změnu obrázků / multimédií na hover */
+.img-edit-container {
+  position: relative;
+}
+
+.img-edit-btn {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 30;
+  background: rgba(15, 23, 42, 0.9);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+body.admin-edit-active .img-edit-container:hover .img-edit-btn,
+body.admin-edit-active .img-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.img-edit-btn:hover {
+  transform: scale(1.05);
+  background: #0284c7;
+  color: #ffffff;
+}
+
+/* Postranní panel podnětů (Offcanvas Drawer) */
+#inPageFeedbackDrawer {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#inPageFeedbackDrawer.drawer-open {
+  transform: translateX(0) !important;
+}
+
+/* Správa fotografií letáčku a galerie */
+body.admin-edit-active .photo-gallery-admin-toolbar {
+  display: flex !important;
+}
+
+.photo-card-control-bar {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 30;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  border-radius: 8px;
+  padding: 3px 6px;
+  gap: 4px;
+}
+
+body.admin-edit-active .photo-card-control-bar {
+  display: flex !important;
+}
+
+/* Správa štítků kandidátů v admin režimu */
+.candidate-tag-delete-btn,
+.candidate-tag-add-btn {
+  display: none !important;
+}
+
+body.admin-edit-active .candidate-tag-delete-btn {
+  display: inline-flex !important;
+}
+
+body.admin-edit-active .candidate-tag-add-btn {
+  display: inline-flex !important;
+}
+
+/* Zákaz skákání odkazů při kliknutí do editovaného textu */
+body.admin-edit-active a[data-editable] {
+  cursor: text;
+}
+
+/* Tlačítko pro editaci odkazů a tlačítek (🔗) */
+.link-edit-btn {
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.95);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  border-radius: 6px;
+  font-size: 11px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.link-edit-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+  transform: scale(1.1);
+}
+
+body.admin-edit-active .link-edit-btn {
+  display: inline-flex !important;
+}
+
+/* Tlačítko Přidat kandidáta v záhlaví seznamu */
+body.admin-edit-active #addNewCandidateBtn {
+  display: inline-flex !important;
+}
+
+/* Ovládací lišta karty kandidáta */
+.candidate-card-admin-bar {
+  display: none;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 25;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  border-radius: 8px;
+  padding: 3px 6px;
+  gap: 4px;
+}
+
+body.admin-edit-active .candidate-card-admin-bar {
+  display: flex !important;
+}
+
+/* Karta pro přidání fotografie do fotogalerie */
+.leaflet-add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  background: rgba(240, 246, 252, 0.7);
+  border: 2px dashed #38bdf8;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.leaflet-add-card:hover {
+  background: rgba(225, 238, 248, 0.95);
+  border-color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(11, 72, 132, 0.15);
+}
+
+/* Programové pilíře - tlačítka správy bodů */
+.pillar-point-delete-btn,
+.pillar-point-add-btn {
+  display: none !important;
+}
+
+body.admin-edit-active .pillar-point-delete-btn {
+  display: inline-flex !important;
+}
+
+body.admin-edit-active .pillar-point-add-btn {
+  display: inline-flex !important;
+}
+
+
+
+
