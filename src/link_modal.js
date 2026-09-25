@@ -73,6 +73,7 @@ window.saveLinkEditModal = function() {
   const urlInput = document.getElementById("linkEditUrlInput");
   const msgInput = document.getElementById("linkEditMessageInput");
   const fbUrlInput = document.getElementById("linkEditFacebookUrlInput");
+  const newTabInput = document.getElementById("linkEditNewTabInput");
 
   if (!el || !textInput || !urlInput) return;
 

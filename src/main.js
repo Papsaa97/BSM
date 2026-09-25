@@ -5,12 +5,6 @@ import { state } from './state.js';
  * Zahrnuje: modulární sekce, funkční formulář podnětů, napojení na Supabase a administrátorský režim.
  */
 
-// Stav aplikace
-
-
-
-
-
 
 // Bezpečnostní utilita: escapování HTML pro prevenci XSS (K1 audit)
 function escapeHtml(str) {

@@ -100,7 +100,7 @@ async function handleCitizenFeedbackSubmit(e) {
     e.target.reset();
 
     // Pokud je správce přihlášen, aktualizujeme badge
-    updateAdminFeedbackCount();
+    updateInPageFeedbackBadge();
   }
 }
 
