@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "Moderní, rychlá a responzivní webová prezentace nezávislého sdružení kandidátů BSM (Bezpečnost • Stabilita • Mládež) pro volby do zastupitelstva obce Horní Stropnice a jejích osad.",
   "devDependencies": {
-    "eslint": "^8.57.0",
     "vite": "^8.3.1"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext .js,.html",
     "preview": "vite preview"
   },
   "repository": {
