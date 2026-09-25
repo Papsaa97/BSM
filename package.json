@@ -1,5 +1,27 @@
 {
   "dependencies": {
     "pg": "^8.23.0"
-  }
+  },
+  "name": "bsm-horni-stropnice",
+  "version": "1.0.0",
+  "description": "Moderní, rychlá a responzivní webová prezentace nezávislého sdružení kandidátů **BSM (Bezpečnost • Stabilita • Mládež)** pro volby do zastupitelstva obce Horní Stropnice a jejích osad.",
+  "main": "run_sql.js",
+  "devDependencies": {
+    "vite": "^8.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Papsaa97/BSM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Papsaa97/BSM/issues"
+  },
+  "homepage": "https://github.com/Papsaa97/BSM#readme"
 }
