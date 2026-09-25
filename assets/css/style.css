@@ -274,6 +274,9 @@ body.admin-edit-active .img-edit-btn {
 }
 
 /* Správa fotografií letáčku a galerie */
+.photo-gallery-admin-toolbar {
+  display: none;
+}
 body.admin-edit-active .photo-gallery-admin-toolbar {
   display: flex !important;
 }
